@@ -9,6 +9,12 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url))
 // Vite config — https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react(), tailwindcss()],
+
+  server: {
+    host: true,
+    allowedHosts: ['kymberly-moderne-pleasurably.ngrok-free.dev'],
+  },
+
   resolve: {
     alias: {
       '@': path.resolve(__dirname, './src'),
