@@ -1,0 +1,43 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Outfit:wght@300;400;500;600;700&family=Dancing+Script:wght@600&display=swap');
+@import 'tailwindcss';
+
+@theme {
+  --color-mustard: #C9992C;
+  --color-mustard-hover: #B8872A;
+  --color-mustard-light: #FDF4DC;
+  --color-ink: #1A1A1A;
+  --color-ink-soft: #2E2E2E;
+  --color-offwhite: #F7F5F0;
+  --color-border: #E5E3DE;
+  --font-display: 'DM Serif Display', Georgia, serif;
+  --font-body: 'Outfit', system-ui, sans-serif;
+  --font-script: 'Dancing Script', cursive;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-body);
+  background-color: #ffffff;
+  color: #1A1A1A;
+}
+
+::-webkit-scrollbar {
+  width: 0px;
+  background: transparent;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+.cursor-blink {
+  animation: blink 1s step-end infinite;
+}
