@@ -4,6 +4,7 @@ import { fetchProduit, fetchProduits } from '../lib/api';
 import type { Product } from '../data/products';
 import ProductCard from '../components/ProductCard';
 import ImageZoom from '../components/ImageZoom';
+ import AddToListButton from '../components/AddToListButton';
 
 export default function ProductDetailPage() {
   const { id } = useParams<{ id: string }>();
@@ -137,6 +138,7 @@ export default function ProductDetailPage() {
               <WhatsAppIcon />
               Commander via WhatsApp
             </a>
+            <div className="mt-3"><AddToListButton product={product} variante="detail" /></div>
 
             <div className="mt-4 flex gap-3 text-xs text-[#1A1A1A]/40 justify-center">
               <span>🚚 Livraison Rabat · Salé · Kénitra</span>

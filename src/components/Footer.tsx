@@ -72,8 +72,14 @@ export default function Footer() {
       </div>
 
       <div className="max-w-7xl mx-auto px-4 border-t border-white/10 pt-6 text-center text-xs text-white/30">
+        <div className="flex flex-wrap justify-center gap-x-5 gap-y-2 mb-3">
+          <Link to="/mentions-legales" className="hover:text-[#C9992C] transition">Mentions légales</Link>
+          <Link to="/cgv" className="hover:text-[#C9992C] transition">Conditions de vente</Link>
+          <Link to="/confidentialite" className="hover:text-[#C9992C] transition">Confidentialité</Link>
+        </div>
         © {new Date().getFullYear()} Mega Home Equipement — Salé, Maroc. Tous droits réservés.
       </div>
+        
     </footer>
   );
 }

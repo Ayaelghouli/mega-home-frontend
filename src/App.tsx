@@ -5,6 +5,7 @@ import HomePage from './pages/HomePage';
 import CataloguePage from './pages/CataloguePage';
 import ProductDetailPage from './pages/ProductDetailPage';
 import AdminPage from './pages/AdminPage';
+import { MentionsLegales, CGV, Confidentialite } from './pages/LegalPages';
 
 export default function App() {
   return (
@@ -24,6 +25,9 @@ export default function App() {
                   <Route path="/" element={<HomePage />} />
                   <Route path="/catalogue" element={<CataloguePage />} />
                   <Route path="/produit/:id" element={<ProductDetailPage />} />
+                  <Route path="/mentions-legales" element={<MentionsLegales />} />
+                  <Route path="/cgv" element={<CGV />} />
+                  <Route path="/confidentialite" element={<Confidentialite />} />
                 </Routes>
               </div>
               <Footer />

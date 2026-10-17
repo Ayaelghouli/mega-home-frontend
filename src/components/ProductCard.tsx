@@ -1,6 +1,7 @@
 
 import { Link } from 'react-router-dom';
 import type { Product } from '../data/products';
+import AddToListButton from '../components/AddToListButton';
 
 interface ProductCardProps {
   product: Product;
@@ -69,6 +70,9 @@ export default function ProductCard({ product }: ProductCardProps) {
           >
             Commander
           </a>
+        </div>
+        <div className="mt-3">
+          <AddToListButton product={product} />
         </div>
       </div>
     </div>
