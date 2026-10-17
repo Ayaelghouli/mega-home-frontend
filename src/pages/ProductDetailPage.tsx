@@ -3,6 +3,7 @@ import { useParams, Link, useNavigate } from 'react-router-dom';
 import { fetchProduit, fetchProduits } from '../lib/api';
 import type { Product } from '../data/products';
 import ProductCard from '../components/ProductCard';
+import ImageZoom from '../components/ImageZoom';
 
 export default function ProductDetailPage() {
   const { id } = useParams<{ id: string }>();
@@ -68,13 +69,7 @@ export default function ProductDetailPage() {
         <div className="grid md:grid-cols-2 gap-10 mb-16">
           {/* ── Gallery ── */}
           <div>
-            <div className="rounded-xl overflow-hidden bg-white border border-[#E5E3DE] mb-3 aspect-square p-6 flex items-center justify-center">
-              <img
-                src={product.images[activeImage]}
-                alt={product.name}
-                className="w-full h-full object-contain"
-              />
-            </div>
+            <ImageZoom src={product.images[activeImage]} alt={product.name} />
             {product.images.length > 1 && (
               <div className="flex gap-2">
                 {product.images.map((img, i) => (
@@ -134,7 +129,7 @@ export default function ProductDetailPage() {
 
             {/* CTA */}
             <a
-              href={`https://wa.me/212661306732?text=Bonjour, je voudrais commander : ${product.name} (Réf. ${product.reference}) au prix de ${product.price.toLocaleString('fr-MA')} DH.`}
+              href={`https://wa.me/212661306732?text=${encodeURIComponent(`Bonjour, je voudrais commander : ${product.name} (Réf. ${product.reference}) au prix de ${product.price.toLocaleString('fr-MA')} DH.`)}`}
               target="_blank"
               rel="noopener noreferrer"
               className="w-full flex items-center justify-center gap-3 bg-[#C9992C] hover:bg-[#B8872A] text-white font-bold py-4 rounded-xl transition text-base"
