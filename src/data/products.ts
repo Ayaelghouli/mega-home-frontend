@@ -22,36 +22,12 @@ export interface Product {
 }
 
 export const CATEGORIES: { name: Category; icon: string; image: string }[] = [
-  {
-    name: 'Réfrigérateurs',
-    icon: '🧊',
-    image: 'https://images.unsplash.com/photo-1584568694244-14fbdf83bd30?w=400&h=300&fit=crop&auto=format',
-  },
-  {
-    name: 'Machines à laver',
-    icon: '🫧',
-    image: 'https://images.unsplash.com/photo-1626806787461-102c1bfaaea1?w=400&h=300&fit=crop&auto=format',
-  },
-  {
-    name: 'Téléviseurs',
-    icon: '📺',
-    image: 'https://images.unsplash.com/photo-1593359677879-a4bb92f4834c?w=400&h=300&fit=crop&auto=format',
-  },
-  {
-    name: 'Climatisation',
-    icon: '❄️',
-    image: 'https://images.unsplash.com/photo-1625216269877-cdb4b2d8fc45?w=400&h=300&fit=crop&auto=format',
-  },
-  {
-    name: 'Cuisson',
-    icon: '🍳',
-    image: 'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=400&h=300&fit=crop&auto=format',
-  },
-  {
-    name: 'Petit électroménager',
-    icon: '☕',
-    image: 'https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=400&h=300&fit=crop&auto=format',
-  },
+  { name: 'Réfrigérateurs',       icon: '🧊', image: '/categories/refrigerateurs.jpg' },
+  { name: 'Machines à laver',     icon: '🫧', image: '/categories/machines-a-laver.jpg' },
+  { name: 'Téléviseurs',          icon: '📺', image: '/categories/televiseurs.jpg' },
+  { name: 'Climatisation',        icon: '❄️', image: '/categories/climatisation.png' },
+  { name: 'Cuisson',              icon: '🍳', image: '/categories/cuisson.jpg' },
+  { name: 'Petit électroménager', icon: '☕', image: '/categories/petit-electromenager.jpg' },
 ];
 
 export const PRODUCTS: Product[] = [
