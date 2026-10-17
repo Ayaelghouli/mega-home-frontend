@@ -4,6 +4,8 @@ import { useTypewriter } from '../hooks/useTypewriter';
 import { CATEGORIES, type Product } from '../data/products';
 import { fetchProduits } from '../lib/api';
 import ProductCard from '../components/ProductCard';
+import CategoryCarousel from '../components/CategoryCarousel';
+
 
 const PARTNER_BRANDS = [
   { name: 'Samsung', svg: <SamsungLogo /> },
@@ -86,7 +88,7 @@ export default function HomePage() {
                 Voir le catalogue →
               </Link>
               <a
-                href="https://wa.me/212600000000"
+                href="https://wa.me/212661306732"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="px-6 py-3 bg-white/10 hover:bg-white/15 border border-white/20 text-white font-medium rounded-lg transition text-sm flex items-center gap-2"
@@ -96,28 +98,8 @@ export default function HomePage() {
             </div>
           </div>
 
-          {/* Category icon grid */}
-          <div className="grid grid-cols-3 gap-3">
-            {CATEGORIES.map(cat => (
-              <Link
-                key={cat.name}
-                to={`/catalogue?cat=${encodeURIComponent(cat.name)}`}
-                className="group relative rounded-xl overflow-hidden aspect-square bg-[#2E2E2E] hover:bg-[#3A3A3A] transition border border-white/5 hover:border-[#C9992C]/40"
-              >
-                <img
-                  src={cat.image}
-                  alt={cat.name}
-                  className="absolute inset-0 w-full h-full object-cover opacity-25 group-hover:opacity-35 transition"
-                />
-                <div className="relative flex flex-col items-center justify-center h-full p-2 text-center">
-                  <span className="text-2xl mb-1">{cat.icon}</span>
-                  <span className="text-white text-[11px] font-semibold leading-tight">
-                    {cat.name}
-                  </span>
-                </div>
-              </Link>
-            ))}
-          </div>
+          {/* Carrousel des catégories */}
+          <CategoryCarousel />
         </div>
       </section>
 
@@ -206,7 +188,7 @@ export default function HomePage() {
                       )}
                     </div>
                     <a
-                      href={`https://wa.me/212600000000?text=Promo : ${product.name}`}
+                      href={`https://wa.me/212661306732?text=${encodeURIComponent('Promo : ' + product.name)}`}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="text-xs bg-[#C9992C] hover:bg-[#B8872A] text-white font-bold px-3 py-1.5 rounded-lg transition"
@@ -301,7 +283,7 @@ export default function HomePage() {
             Notre équipe vous répond rapidement sur WhatsApp — 7j/7.
           </p>
           <a
-            href="https://wa.me/212600000000?text=Bonjour, je souhaite des informations sur vos produits."
+            href={`https://wa.me/212661306732?text=${encodeURIComponent('Bonjour, je souhaite des informations sur vos produits.')}`}
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-3 px-8 py-3 bg-[#1A1A1A] hover:bg-[#2E2E2E] text-white font-semibold rounded-lg transition text-sm"
