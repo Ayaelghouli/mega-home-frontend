@@ -68,11 +68,11 @@ export default function ProductDetailPage() {
         <div className="grid md:grid-cols-2 gap-10 mb-16">
           {/* ── Gallery ── */}
           <div>
-            <div className="rounded-xl overflow-hidden bg-[#F7F5F0] border border-[#E5E3DE] mb-3 aspect-square">
+            <div className="rounded-xl overflow-hidden bg-white border border-[#E5E3DE] mb-3 aspect-square p-6 flex items-center justify-center">
               <img
                 src={product.images[activeImage]}
                 alt={product.name}
-                className="w-full h-full object-cover"
+                className="w-full h-full object-contain"
               />
             </div>
             {product.images.length > 1 && (
@@ -83,7 +83,7 @@ export default function ProductDetailPage() {
                     onClick={() => setActiveImage(i)}
                     className={`w-16 h-16 rounded-lg overflow-hidden border-2 transition ${activeImage === i ? 'border-[#C9992C]' : 'border-[#E5E3DE] hover:border-[#C9992C]/50'}`}
                   >
-                    <img src={img} alt="" className="w-full h-full object-cover" />
+                    <img src={img} alt="" className="w-full h-full object-contain bg-white p-1" />
                   </button>
                 ))}
               </div>
@@ -144,11 +144,11 @@ export default function ProductDetailPage() {
             </a>
 
             <div className="mt-4 flex gap-3 text-xs text-[#1A1A1A]/40 justify-center">
-              <span>🚚 Livraison à Salé</span>
+              <span>🚚 Livraison Rabat · Salé · Kénitra</span>
               <span>•</span>
-              <span>✅ Garantie 2 ans</span>
+              <span>✅ Garantie</span>
               <span>•</span>
-              <span>🔧 Installation incluse</span>
+              <span>🔧 Installation</span>
             </div>
           </div>
         </div>

@@ -127,9 +127,9 @@ export default function HomePage() {
       <section className="bg-[#F7F5F0] border-b border-[#E5E3DE]">
         <div className="max-w-7xl mx-auto px-4 py-4 flex flex-wrap items-center justify-center gap-6 md:gap-12">
           {[
-            { icon: '🚚', text: 'Livraison à Salé & environs' },
+            { icon: '🚚', text: 'Livraison Rabat · Salé · Kénitra' },
             { icon: '🔧', text: 'Installation professionnelle' },
-            { icon: '✅', text: 'Garantie 2 ans constructeur' },
+            { icon: '✅', text: 'Garantie' },
             { icon: '💬', text: 'Commander via WhatsApp' },
           ].map(item => (
             <div key={item.text} className="flex items-center gap-2 text-sm text-[#1A1A1A]">
