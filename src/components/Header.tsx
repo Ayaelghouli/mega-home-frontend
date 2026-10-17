@@ -1,134 +1,210 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import LogoIcon from './LogoIcon';
+import CategoriesMenu from './CategoriesMenu';
+import { useListe } from '../context/ListeContext';
+import { CATEGORIES } from '../data/products';
+
+const TEL = '+212 6 61 30 67 32';
+const WA = '212661306732';
+const lienSav = `https://wa.me/${WA}?text=${encodeURIComponent(
+  'Bonjour, j’ai besoin du service après-vente.\nProduit concerné : \nN° de facture : \nProblème rencontré : ',
+)}`;
 
 export default function Header() {
   const [query, setQuery] = useState('');
   const [menuOpen, setMenuOpen] = useState(false);
   const navigate = useNavigate();
+  const { count, setOuvert } = useListe();
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
+    setMenuOpen(false);
     navigate(`/catalogue?q=${encodeURIComponent(query)}`);
   };
 
   return (
-    <header className="sticky top-0 z-50 bg-[#1A1A1A] shadow-lg">
-      <div className="max-w-7xl mx-auto px-4 py-3 flex items-center gap-4">
-        {/* Logo mark + wordmark */}
-        <Link to="/" className="flex-shrink-0 flex items-center gap-2.5">
-          <MHLogo />
-          <div className="hidden sm:block">
-            <div className="text-white font-bold text-base leading-tight tracking-tight">
-              Mega<span className="text-[#C9992C]">Home</span>
-            </div>
-            <div className="text-white/60 text-[9px] uppercase tracking-[0.2em] leading-tight">
-              Equipement
-            </div>
-            <div
-              className="text-[#C9992C] text-[11px] leading-none mt-0.5 italic"
-              style={{ fontFamily: 'var(--font-script)' }}
-            >
-              Votre maison, notre priorité
-            </div>
+    <>
+      {/* ── Bandeau d'infos (défile avec la page) ── */}
+      <div className="bg-[#C9992C] text-[#1A1A1A] text-xs font-medium">
+        <div className="max-w-7xl mx-auto px-4 py-1.5 flex items-center justify-between gap-4">
+          <div className="flex items-center gap-x-5 gap-y-1 flex-wrap">
+            <span>🚚 Livraison Rabat · Salé · Kénitra</span>
+            <span className="hidden sm:inline">🔧 Installation professionnelle</span>
           </div>
-        </Link>
-
-        {/* Search */}
-        <form onSubmit={handleSearch} className="flex-1 flex">
-          <div className="relative w-full flex">
-            <input
-              type="text"
-              value={query}
-              onChange={e => setQuery(e.target.value)}
-              placeholder="Rechercher un appareil, une marque..."
-              className="w-full pl-4 pr-3 py-2 rounded-l-lg bg-white/10 border border-white/15 text-white placeholder-white/40 text-sm outline-none focus:bg-white/15 transition"
-            />
-            <button
-              type="submit"
-              className="px-4 py-2 bg-[#C9992C] text-[#1A1A1A] font-semibold text-sm rounded-r-lg hover:bg-[#D9A941] transition"
-            >
-              Rechercher
-            </button>
+          <div className="flex items-center gap-x-5">
+            <span className="hidden md:inline">📍 Showroom à Salé</span>
+            <a href="tel:+212661306732" className="font-semibold hover:underline">
+              📞 {TEL}
+            </a>
           </div>
-        </form>
-
-        {/* WhatsApp CTA */}
-        <a
-          href="https://wa.me/212661306732"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="hidden md:flex items-center gap-2 px-4 py-2 bg-green-500 hover:bg-green-400 text-white rounded-lg text-sm font-medium transition"
-        >
-          <WhatsAppIcon />
-          <span>Commander</span>
-        </a>
-
-        {/* Mobile toggle */}
-        <button
-          className="md:hidden text-white p-1"
-          onClick={() => setMenuOpen(!menuOpen)}
-          aria-label="Menu"
-        >
-          {menuOpen ? '✕' : '☰'}
-        </button>
+        </div>
       </div>
 
-      {/* Nav */}
-      <nav className="hidden md:block border-t border-white/10">
-        <div className="max-w-7xl mx-auto px-4 flex gap-6 text-sm text-white/70 py-2">
-          <Link to="/" className="hover:text-[#C9992C] transition">Accueil</Link>
-          <Link to="/catalogue" className="hover:text-[#C9992C] transition">Catalogue</Link>
-          <Link to="/catalogue?cat=Réfrigérateurs" className="hover:text-[#C9992C] transition">Réfrigérateurs</Link>
-          <Link to="/catalogue?cat=Machines+à+laver" className="hover:text-[#C9992C] transition">Machines à laver</Link>
-          <Link to="/catalogue?cat=Téléviseurs" className="hover:text-[#C9992C] transition">Téléviseurs</Link>
-          <Link to="/catalogue?cat=Climatisation" className="hover:text-[#C9992C] transition">Climatisation</Link>
-          <Link to="/catalogue?cat=Cuisson" className="hover:text-[#C9992C] transition">Cuisson</Link>
-        </div>
-      </nav>
+      <header className="sticky top-0 z-50 bg-[#1A1A1A] shadow-lg">
+        {/* ── Ligne principale ── */}
+        <div className="max-w-7xl mx-auto px-4 py-3 flex items-center gap-3 md:gap-4">
+          {/* Logo */}
+          <Link to="/" className="flex-shrink-0 flex items-center gap-2.5" aria-label="Mega Home Equipement – accueil">
+            <LogoIcon taille={44} />
+            <div className="hidden sm:block">
+              <div className="text-white font-bold text-base leading-tight tracking-tight">
+                Mega<span className="text-[#C9992C]">Home</span>
+              </div>
+              <div className="text-white/60 text-[9px] uppercase tracking-[0.2em] leading-tight">
+                Equipement
+              </div>
+              <div
+                className="text-[#C9992C] text-[11px] leading-none mt-0.5 italic"
+                style={{ fontFamily: 'var(--font-script)' }}
+              >
+                Votre maison, notre priorité
+              </div>
+            </div>
+          </Link>
 
-      {/* Mobile menu */}
-      {menuOpen && (
-        <div className="md:hidden border-t border-white/10 bg-[#1A1A1A] px-4 py-3 space-y-2">
-          {[['/', 'Accueil'], ['/catalogue', 'Catalogue']].map(([path, label]) => (
-            <Link
-              key={path}
-              to={path}
-              className="block text-white/80 hover:text-[#C9992C] py-1 text-sm"
-              onClick={() => setMenuOpen(false)}
-            >
-              {label}
-            </Link>
-          ))}
-          <a
-            href="https://wa.me/212661306732"
-            className="flex items-center gap-2 text-green-400 py-1 text-sm"
+          {/* Recherche */}
+          <form onSubmit={handleSearch} className="flex-1 flex min-w-0">
+            <div className="relative w-full flex">
+              <input
+                type="text"
+                value={query}
+                onChange={e => setQuery(e.target.value)}
+                placeholder="Rechercher un appareil, une marque..."
+                className="w-full min-w-0 pl-4 pr-3 py-2 rounded-l-lg bg-white/10 border border-white/15 text-white placeholder-white/40 text-sm outline-none focus:bg-white/15 transition"
+              />
+              <button
+                type="submit"
+                className="px-3 sm:px-4 py-2 bg-[#C9992C] text-[#1A1A1A] font-semibold text-sm rounded-r-lg hover:bg-[#D9A941] transition"
+                aria-label="Rechercher"
+              >
+                <span className="hidden sm:inline">Rechercher</span>
+                <span className="sm:hidden">🔍</span>
+              </button>
+            </div>
+          </form>
+
+          {/* Ma liste */}
+          <button
+            type="button"
+            onClick={() => setOuvert(true)}
+            className="relative flex-shrink-0 flex items-center gap-2 px-3 py-2 rounded-lg text-white hover:bg-white/10 transition"
+            aria-label={`Ma liste (${count} article${count > 1 ? 's' : ''})`}
           >
-            <WhatsAppIcon /> Commander via WhatsApp
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M6 6h15l-1.5 9h-12z" />
+              <path d="M6 6L5 3H2" />
+              <circle cx="9" cy="20" r="1.3" />
+              <circle cx="18" cy="20" r="1.3" />
+            </svg>
+            <span className="hidden lg:inline text-sm font-medium">Ma liste</span>
+            {count > 0 && (
+              <span className="absolute -top-1 -right-1 min-w-5 h-5 px-1 rounded-full bg-[#C9992C] text-[#1A1A1A] text-[11px] font-bold flex items-center justify-center">
+                {count}
+              </span>
+            )}
+          </button>
+
+          {/* WhatsApp CTA */}
+          <a
+            href={`https://wa.me/${WA}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hidden md:flex flex-shrink-0 items-center gap-2 px-4 py-2 bg-green-500 hover:bg-green-400 text-white rounded-lg text-sm font-medium transition"
+          >
+            <WhatsAppIcon />
+            <span>Commander</span>
           </a>
+
+          {/* Menu mobile */}
+          <button
+            className="md:hidden flex-shrink-0 text-white p-1 text-xl"
+            onClick={() => setMenuOpen(!menuOpen)}
+            aria-label="Menu"
+            aria-expanded={menuOpen}
+          >
+            {menuOpen ? '✕' : '☰'}
+          </button>
         </div>
-      )}
-    </header>
+
+        {/* ── Navigation (écran large) ── */}
+        <nav className="hidden md:block border-t border-white/10">
+          <div className="max-w-7xl mx-auto px-4 flex items-center gap-7 text-sm py-2.5">
+            <CategoriesMenu variante="sombre" />
+            <Link to="/" className="text-white/70 hover:text-[#C9992C] transition">Accueil</Link>
+            <Link to="/catalogue" className="text-white/70 hover:text-[#C9992C] transition">Catalogue</Link>
+            <a
+              href={lienSav}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="ml-auto text-white/70 hover:text-[#C9992C] transition"
+            >
+              🔧 Service après-vente
+            </a>
+          </div>
+        </nav>
+
+        {/* ── Menu mobile ── */}
+        {menuOpen && (
+          <div className="md:hidden border-t border-white/10 bg-[#1A1A1A] px-4 py-3 max-h-[75vh] overflow-y-auto">
+            <div className="space-y-1">
+              <MobileLink to="/" onClick={() => setMenuOpen(false)}>Accueil</MobileLink>
+              <MobileLink to="/catalogue" onClick={() => setMenuOpen(false)}>Catalogue</MobileLink>
+            </div>
+
+            <p className="text-white/40 text-[10px] uppercase tracking-widest mt-4 mb-1">Catégories</p>
+            <div className="space-y-1">
+              {CATEGORIES.map(cat => (
+                <MobileLink
+                  key={cat.name}
+                  to={`/catalogue?cat=${encodeURIComponent(cat.name)}`}
+                  onClick={() => setMenuOpen(false)}
+                >
+                  <span className="mr-2">{cat.icon}</span>
+                  {cat.name}
+                </MobileLink>
+              ))}
+            </div>
+
+            <div className="border-t border-white/10 mt-4 pt-3 space-y-2">
+              <a href="tel:+212661306732" className="block text-white/80 py-1 text-sm">📞 {TEL}</a>
+              <a
+                href={`https://wa.me/${WA}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-2 text-green-400 py-1 text-sm"
+              >
+                <WhatsAppIcon /> Commander via WhatsApp
+              </a>
+              <a
+                href={lienSav}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block text-white/80 py-1 text-sm"
+              >
+                🔧 Service après-vente
+              </a>
+            </div>
+          </div>
+        )}
+      </header>
+    </>
   );
 }
 
-function MHLogo() {
+function MobileLink({
+  to,
+  onClick,
+  children,
+}: {
+  to: string;
+  onClick: () => void;
+  children: React.ReactNode;
+}) {
   return (
-    <svg width="42" height="42" viewBox="0 0 42 42" fill="none" xmlns="http://www.w3.org/2000/svg">
-      {/* Black circle */}
-      <circle cx="21" cy="21" r="21" fill="#1A1A1A" />
-      {/* Mustard outer ring accent */}
-      <circle cx="21" cy="21" r="20" stroke="#C9992C" strokeWidth="1.5" fill="none" />
-      {/* House roof */}
-      <path d="M21 8L33 18H9L21 8Z" fill="#C9992C" />
-      {/* House body */}
-      <rect x="11" y="17" width="20" height="14" rx="0.5" fill="#1A1A1A" stroke="#C9992C" strokeWidth="1" />
-      {/* M letterform */}
-      <text x="13" y="28" fontFamily="Arial Black, Arial" fontWeight="900" fontSize="9" fill="white" letterSpacing="-0.5">M</text>
-      {/* H letterform */}
-      <text x="22.5" y="28" fontFamily="Arial Black, Arial" fontWeight="900" fontSize="9" fill="#C9992C" letterSpacing="-0.5">H</text>
-      {/* Door bottom */}
-      <rect x="18" y="25" width="6" height="6" rx="0.5" fill="#C9992C" opacity="0.3" />
-    </svg>
+    <Link to={to} onClick={onClick} className="block text-white/80 hover:text-[#C9992C] py-1.5 text-sm">
+      {children}
+    </Link>
   );
 }
 
