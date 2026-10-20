@@ -1,5 +1,4 @@
 User-agent: *
 Allow: /
 Disallow: /admin
-
-Sitemap: https://TONDOMAINE.ma/sitemap.xml
+Sitemap: https://megahomeequipment.com/sitemap.xml
