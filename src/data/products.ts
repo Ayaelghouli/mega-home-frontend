@@ -4,7 +4,13 @@ export type Category =
   | 'Téléviseurs'
   | 'Climatisation'
   | 'Cuisson'
-  | 'Petit électroménager';
+  | 'Petit électroménager'
+  | 'Congélateurs'
+  | 'Lave-vaisselle'
+  | 'Hottes'
+  | 'Chauffe-eau / Solaire'
+  | 'Audio'
+  | 'Ustensiles de cuisine';
 
 export interface Product {
   id: string;
@@ -28,6 +34,14 @@ export const CATEGORIES: { name: Category; icon: string; image: string }[] = [
   { name: 'Climatisation',        icon: '❄️', image: '/categories/climatisation.png' },
   { name: 'Cuisson',              icon: '🍳', image: '/categories/cuisson.jpg' },
   { name: 'Petit électroménager', icon: '☕', image: '/categories/petit-electromenager.jpg' },
+  // Catégories sans photo de couverture (image vide = fond dégradé + icône).
+  // Pour ajouter une photo : la mettre dans public/categories/ puis écrire son chemin ici.
+  { name: 'Congélateurs',          icon: '🧊', image: '' },
+  { name: 'Lave-vaisselle',        icon: '🍽️', image: '' },
+  { name: 'Hottes',                icon: '💨', image: '' },
+  { name: 'Chauffe-eau / Solaire', icon: '🔥', image: '' },
+  { name: 'Audio',                 icon: '🔊', image: '' },
+  { name: 'Ustensiles de cuisine', icon: '🍳', image: '' },
 ];
 
 export const PRODUCTS: Product[] = [

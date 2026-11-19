@@ -15,25 +15,30 @@ interface ApiProduit {
   stock: number;
   photos: string[];
   promo: boolean;
+  prix_barre?: number | null;
+  description?: string | null;
 }
 
 // ── Adaptateur : transforme un produit backend en `Product` (forme utilisée par les composants) ──
 function versProduct(p: ApiProduit): Product {
+  const prix = p.prix ?? 0;
+  const ancien = p.prix_barre && p.prix_barre > prix ? p.prix_barre : undefined;
+  const remise = ancien ? Math.round(((ancien - prix) / ancien) * 100) : null;
   return {
     id: p._id,
     name: p.designation,
     brand: p.marque,
     reference: p.reference,
     category: p.categorie as Category,
-    price: p.prix ?? 0,
-    originalPrice: undefined,
-    promoLabel: p.promo ? 'PROMO' : undefined,
+    price: prix,
+    originalPrice: ancien,
+    promoLabel: p.promo ? (remise ? `-${remise}%` : 'PROMO') : undefined,
     inStock: p.stock > 0,
     images: p.photos && p.photos.length > 0
       ? p.photos.map(nom => nom.startsWith('http') ? nom : `${API_URL}/static/photos/${nom}`)
       : ['/placeholder-produit.png'],
     specs: [],
-    description: '',
+    description: p.description ?? '',
   };
 }
 
@@ -101,6 +106,15 @@ export async function login(email: string, mot_de_passe: string): Promise<boolea
   return true;
 }
 
+// Session expirée (401) : on vide le token et on recharge -> l'écran de connexion s'affiche
+function verifierSession(res: Response) {
+  if (res.status === 401) {
+    clearToken();
+    alert('Session expirée — reconnecte-toi puis recommence.');
+    window.location.reload();
+  }
+}
+
 function headersAuth(): HeadersInit {
   const token = getToken();
   return {
@@ -120,6 +134,8 @@ export interface ProduitFormulaire {
   stock: number;
   photos: string[];
   promo: boolean;
+  prix_barre?: number;
+  description?: string;
 }
 
 export async function creerProduit(donnees: ProduitFormulaire): Promise<boolean> {
@@ -128,6 +144,7 @@ export async function creerProduit(donnees: ProduitFormulaire): Promise<boolean>
     headers: headersAuth(),
     body: JSON.stringify(donnees),
   });
+  verifierSession(res);
   return res.ok;
 }
 
@@ -137,6 +154,7 @@ export async function modifierProduit(id: string, donnees: Partial<ProduitFormul
     headers: headersAuth(),
     body: JSON.stringify(donnees),
   });
+  verifierSession(res);
   return res.ok;
 }
 
@@ -145,5 +163,6 @@ export async function supprimerProduit(id: string): Promise<boolean> {
     method: 'DELETE',
     headers: headersAuth(),
   });
+  verifierSession(res);
   return res.ok;
 }

@@ -5,6 +5,7 @@ import { CATEGORIES, type Product } from '../data/products';
 import { fetchProduits } from '../lib/api';
 import ProductCard from '../components/ProductCard';
 import CategoryCarousel from '../components/CategoryCarousel';
+import PromoCarousel from '../components/PromoCarousel';
 
 
 const PARTNER_BRANDS = [
@@ -25,7 +26,7 @@ export default function HomePage() {
   const [featuredProducts, setFeaturedProducts] = useState<Product[]>([]);
 
   useEffect(() => {
-    fetchProduits({ promo: true, limite: 4 })
+    fetchProduits({ promo: true, limite: 12 })
       .then(setPromoProducts)
       .catch(() => {});
     fetchProduits({ limite: 8 })
@@ -140,68 +141,31 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ── Promotions "En ce moment" ── */}
-      <section className="bg-[#1A1A1A] py-14">
-        <div className="max-w-7xl mx-auto px-4">
-          <div className="flex items-end justify-between mb-8">
-            <div>
-              <p className="text-[#C9992C] text-xs font-bold uppercase tracking-widest mb-1">Offres spéciales</p>
-              <h2
-                className="text-3xl text-white"
-                style={{ fontFamily: 'var(--font-display)' }}
+      {/* ── Promotions / Black Friday ── */}
+      {promoProducts.length > 0 && (
+        <section className="bg-[#1A1A1A] py-14">
+          <div className="max-w-7xl mx-auto px-4">
+            <PromoCarousel
+              articles={promoProducts.map(p => ({
+                id: p.id,
+                name: p.name,
+                brand: p.brand,
+                image: p.images[0],
+                prix: p.price,
+                ancienPrix: p.originalPrice,
+              }))}
+            />
+            <div className="mt-6 text-center">
+              <Link
+                to="/catalogue?promo=true"
+                className="text-sm text-white/60 hover:text-[#C9992C] transition underline underline-offset-4"
               >
-                En ce moment
-              </h2>
+                Voir toutes les promos →
+              </Link>
             </div>
-            <Link
-              to="/catalogue?promo=true"
-              className="text-sm text-white/60 hover:text-[#C9992C] transition underline underline-offset-4"
-            >
-              Voir toutes les promos
-            </Link>
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            {promoProducts.map(product => (
-              <div key={product.id} className="bg-[#2E2E2E] rounded-xl border border-white/5 overflow-hidden group hover:bg-[#383838] transition">
-                <Link to={`/produit/${product.id}`} className="block relative overflow-hidden">
-                  <img
-                    src={product.images[0]}
-                    alt={product.name}
-                    className="w-full h-44 object-cover opacity-80 group-hover:opacity-95 group-hover:scale-105 transition duration-300"
-                  />
-                  <span className="absolute top-2 left-2 bg-[#C9992C] text-white text-xs font-bold px-2 py-0.5 rounded">
-                    {product.promoLabel}
-                  </span>
-                </Link>
-                <div className="p-4">
-                  <p className="text-[10px] text-[#C9992C] uppercase tracking-widest font-semibold">{product.brand}</p>
-                  <Link to={`/produit/${product.id}`} className="text-white font-medium text-sm leading-snug hover:text-[#C9992C] transition line-clamp-2 mt-1 block">
-                    {product.name}
-                  </Link>
-                  <div className="mt-3 flex items-center justify-between">
-                    <div>
-                      <span className="text-white font-bold">{product.price.toLocaleString('fr-MA')} DH</span>
-                      {product.originalPrice && (
-                        <span className="text-white/30 text-xs line-through ml-2">
-                          {product.originalPrice.toLocaleString('fr-MA')} DH
-                        </span>
-                      )}
-                    </div>
-                    <a
-                      href={`https://wa.me/212661306732?text=${encodeURIComponent('Promo : ' + product.name)}`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-xs bg-[#C9992C] hover:bg-[#B8872A] text-white font-bold px-3 py-1.5 rounded-lg transition"
-                    >
-                      Je veux ça
-                    </a>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+        </section>
+      )}
 
       {/* ── Category grid ── */}
       <section className="py-16 bg-[#F7F5F0]">
@@ -222,12 +186,14 @@ export default function HomePage() {
                 to={`/catalogue?cat=${encodeURIComponent(cat.name)}`}
                 className="group rounded-xl overflow-hidden border border-[#E5E3DE] bg-white hover:border-[#C9992C] transition-all hover:shadow-sm"
               >
-                <div className="relative h-32 bg-gray-50 overflow-hidden">
-                  <img
-                    src={cat.image}
-                    alt={cat.name}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                  />
+                <div className="relative h-32 bg-gradient-to-br from-[#3a3a3a] via-[#232323] to-[#4a3b14] overflow-hidden">
+                  {cat.image && (
+                    <img
+                      src={cat.image}
+                      alt={cat.name}
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                    />
+                  )}
                   <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent" />
                   <span className="absolute bottom-2 left-1/2 -translate-x-1/2 text-3xl">{cat.icon}</span>
                 </div>

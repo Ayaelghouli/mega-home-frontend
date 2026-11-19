@@ -96,6 +96,7 @@ const emptyForm = {
   reference: "",
   category: "Réfrigérateurs" as Category,
   price: "",
+  oldPrice: "",
   stock: "",
   photos: "",
   promo: false,
@@ -153,7 +154,8 @@ export default function AdminPage() {
       reference: product.reference,
       category: product.category,
       price: String(product.price),
-      stock: "0",
+      oldPrice: product.originalPrice ? String(product.originalPrice) : "",
+      stock: product.inStock ? "1" : "0",
       photos: product.images
         .filter((i) => !i.includes("placeholder"))
         .join(", "),
@@ -173,12 +175,21 @@ export default function AdminPage() {
       categorie: form.category,
       marque: form.brand,
       prix: Number(form.price),
+      prix_barre: Number(form.oldPrice) || 0,
+      description: form.description.trim(),
       stock: Number(form.stock) || 0,
       photos: form.photos
-        .split(",")
-        .map((p) => p.trim())
+        .split(/[\n,]\s*(?=https?:\/\/)/)
+        .map((p) => p.trim().replace(/,$/, "").replace(/\s+/g, "%20"))
         .filter(Boolean),
       promo: form.promo,
+    }
+
+    if (donnees.photos.some((p) => !/^https?:\/\//i.test(p))) {
+      setErreurForm(
+        "Chaque lien photo doit commencer par https:// (sépare-les par une virgule suivie d'un nouveau https://).",
+      )
+      return
     }
 
     const ok = editingId
@@ -187,7 +198,7 @@ export default function AdminPage() {
 
     if (!ok) {
       setErreurForm(
-        "L'enregistrement a échoué — vérifie que la référence n'existe pas déjà.",
+        "L'enregistrement a échoué — si ça persiste : Déconnexion puis reconnecte-toi, et vérifie la référence (unique) et les liens des photos.",
       )
       return
     }
@@ -440,6 +451,17 @@ export default function AdminPage() {
                     }
                     placeholder="4990"
                     required
+                  />
+                </div>
+                <div>
+                  <Label>Ancien prix barré (DH) — facultatif</Label>
+                  <Input
+                    type="number"
+                    value={form.oldPrice}
+                    onChange={(e) =>
+                      setForm((f) => ({ ...f, oldPrice: e.target.value }))
+                    }
+                    placeholder="5990 (laisser vide = pas de prix barré)"
                   />
                 </div>
                 <div>

@@ -2,11 +2,6 @@ import { Link } from 'react-router-dom';
 import type { ReactNode } from 'react';
 import { usePageMeta } from '../lib/seo';
 
-/* ───────────────────────────────────────────────────────────────
-   ⚠ À REMPLIR UNE SEULE FOIS : tout le reste des pages se met à jour.
-   Remplace chaque valeur « À COMPLÉTER » par la vraie information
-   (elle figure sur ton registre de commerce / attestation ICE).
-   ─────────────────────────────────────────────────────────────── */
 const INFOS = {
   nomCommercial: 'Mega Home Equipement',
   raisonSociale: 'MEGA HOME EQUIPMENT SARL',
@@ -18,8 +13,6 @@ const INFOS = {
   rc: 'RC n° 39713',
   identifiantFiscal: '65942933',
   directeurPublication: 'Le gérant de MEGA HOME EQUIPEMENT SARL',
-  hebergeurFront: 'Netlify, Inc. – 512 2nd Street, Suite 200, San Francisco, CA 94107, États-Unis',
-  hebergeurBack: 'Sevalla (hébergement de l’API) – Frankfurt, Allemagne',
   zoneLivraison: 'Rabat, Salé et Kénitra',
   dateMaj: 'Octobre 2026',
 };
@@ -70,10 +63,6 @@ export function MentionsLegales() {
         <li><strong>Identifiant fiscal :</strong> {INFOS.identifiantFiscal}</li>
         <li><strong>Directeur de la publication :</strong> {INFOS.directeurPublication}</li>
       </ul>
-
-      <H>Hébergement</H>
-      <p>Site : {INFOS.hebergeurFront}.</p>
-      <p>Serveur de données : {INFOS.hebergeurBack}.</p>
 
       <H>Propriété intellectuelle</H>
       <p>
